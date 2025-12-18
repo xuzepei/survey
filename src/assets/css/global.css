@@ -1,0 +1,42 @@
+html,
+body,
+#app {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+/* 所有元素（包括伪元素）在计算宽度和高度时，包括了 padding 和 border，不会超出你设置的尺寸。 */
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* 全局颜色 */
+:root {
+  --primary-color: #42A5F5;
+  --secondary-color: #FF5722;
+  --background-color: #FAFAFA;
+  --gray-color: #69696D;
+  --dark-color: #69696D;
+  --selected-color: #D3E3FD;
+  --hover-color: #EBEEF6;
+  --white-color: #FFFFFF;
+  --shadow-color: #dddddd;
+  --border-color: #eeeeee;
+  --login-bg-color: #2b4b6b;
+  --system-blue: #007AFF;
+  --tip-blue: #409EFF;
+  --survey-bg-color: #e0e9f1;
+  --survey-border: #d7dadf;
+  --system-gray6: #F2F2F7;
+  --system-gray5: #E5E5EA;
+  --system-gray4: #D1D1D6;
+  --card-head-color: #4270a5;
+  --card-text-color: #202124;
+}
