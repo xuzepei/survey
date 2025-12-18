@@ -3,11 +3,14 @@
         <div class="logo_group">
             <img src="@/assets/images/logo.png" />
         </div>
-        
+
         <div class="title_card">
             <div class="card_content">
                 <h2>Panda Scanner - Support Survey</h2>
-                <p class="card_text">Dear Customer, thank you for your trust and support in our customer service over the past year! To better understand your service experience and help us improve our quality of service for the future, we invite you to participate in this survey. Your valuable feedback is extremely important to us.  </p>
+                <p class="card_text">Dear Customer, thank you for your trust and support in our customer service over
+                    the past year! To better understand your service experience and help us improve our quality of
+                    service for the future, we invite you to participate in this survey. Your valuable feedback is
+                    extremely important to us. </p>
             </div>
         </div>
 
@@ -24,6 +27,33 @@
                 </div>
             </div>
 
+            <div class="country_card">
+                <div class="card_content">
+                    <div class="form_title required">Country or Region</div>
+                    <!-- Country -->
+                    <el-select v-model="formData.country" filterable allow-create placeholder="Select country or region"
+                        :disabled="isRequesting" class="select_area">
+                        <el-option v-for="item in countries" :key="item.code" :label="item.name" :value="item.name">
+                            <div class="multi-line-option">
+                                {{ item.name }}
+                            </div>
+                        </el-option>
+                    </el-select>
+
+                    <!-- <div class="map_area">
+                        <iframe class="map_iframe" src="https://www.google.com/maps?q=world&z=1&output=embed"
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div> -->
+
+                    <div class="map_area">
+                        <div ref="map" class="leaflet_map"></div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
 
             <!-- 按钮区 -->
             <el-form-item class="buttons">
@@ -38,7 +68,6 @@
 </template>
 
 <style>
-    
 .main_container {
     margin: 0px;
     padding: 20px;
@@ -57,8 +86,10 @@ div {
 .logo_group img {
     max-width: 100%;
     height: auto;
-    border-radius: 8px; /* 圆角大小 */
-    display: block;  /* 去掉 img 底部空隙 */
+    border-radius: 8px;
+    /* 圆角大小 */
+    display: block;
+    /* 去掉 img 底部空隙 */
 }
 
 .title_card {
@@ -79,7 +110,8 @@ div {
     color: var(--card-text-color);
 }
 
-.email_card {
+.email_card,
+.country_card {
     margin-top: 20px;
     border-radius: 8px;
     background-color: var(--card-head-color);
@@ -90,7 +122,7 @@ div {
     font-size: 18px;
     font-weight: normal;
     color: black;
-    font-weight:500
+    font-weight: 500
 }
 
 .form_title.required::after {
@@ -98,67 +130,59 @@ div {
     color: red;
 }
 
+.select_area {
+    flex: 3;
+    height: 44px;
+    width: 100%;
+}
 
-
-/* ul {
-    list-style-type: none;
-    padding: 0px; 
-} */
-
-li {
+/* 针对下拉列表项的样式调整 */
+.multi-line-option {
+    white-space: normal;
+    /* 允许换行 */
+    word-break: break-word;
+    /* 防止长单词溢出 */
     line-height: 2;
+    /* 调整行高，增加可读性 */
+    padding: 8px;
+    /* 上下留白 */
 }
 
-.green_class {
-    color: green;
+.map_area {
+    margin-top: 16px;
+    width: 100%;
+    height: 320px;
+    /* 可调 */
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--survey-border);
 }
 
-.v-for-row {
-    display: flex;
-    flex-direction: row;
+.leaflet_map {
+    width: 100%;
+    height: 100%;
 }
 
-.v-for-row-item {
-    font-size: 32px;
-    font-weight: bold;
-    margin-left: 10px;
-    /* 修改这里 */
-    background-color: pink;
-}
-
-.v-for-column {
-    display: flex;
-    flex-direction: column;
-}
-
-.v-for-column-item {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    /* 修改这里 */
-    background-color: blue;
-}
-
-
-.v-for-buttons button {
-    margin-right: 10px;
-    margin-top: 10px;
-}
-
-#container {
-    color: red;
-}
-
-.beRed {
-    color: red;
+/* 修复 Leaflet icon 路径问题 */
+.leaflet-container {
+    font-family: inherit;
 }
 </style>
 
 <script>
+import { getNames, getCode } from 'country-list'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+
+function normalizeCountryName(name) {
+  return name.replace(/\s*\(the\)$/i, '')
+}
+
 
 export default {
     mounted() {
         console.log('Survey has been mounted!');
+        this.initMap();
     },
     created() {
         console.log('Survey has been created!');
@@ -169,6 +193,7 @@ export default {
             //登录表单数据绑定对象
             formData: {
                 email: this.$tool.isDev() ? "" : "",
+                country: this.$tool.isDev() ? "" : "",
                 password: this.$tool.isDev() ? "" : "",
             },
             formRules: {
@@ -187,9 +212,58 @@ export default {
             tokenInfo: null,
             requestingHostUrl: false, //是否正在请求HostUrl
             showPassword: false, // 是否显示密码
+            map: null,
+            countries: getNames().map(name => {
+                console.log('country name:', name)
+
+                return {
+                    name: normalizeCountryName(name),
+                    code: getCode(name)
+                }
+            })
         }
     },
     methods: {
+
+        initMap() {
+            this.map = L.map(this.$refs.map, {
+                center: [20, 0], // 🌍 世界中心
+                zoom: 2,
+                minZoom: 1,
+                zoomControl: true,
+                scrollWheelZoom: false
+            })
+
+            // 🌍 世界地图（OpenStreetMap）
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; OpenStreetMap'
+            }).addTo(this.map)
+        },
+
+        // ✅ 新增：国家定位
+        locateCountry(countryName) {
+            if (!countryName || !this.map) return
+
+            fetch(
+                `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(countryName)}&limit=1`
+            )
+                .then(res => res.json())
+                .then(data => {
+                    if (!data || !data.length) {
+                        console.warn('No location found for:', countryName)
+                        return
+                    }
+
+                    const { lat, lon } = data[0]
+
+                    this.map.setView([Number(lat), Number(lon)], 5)
+                })
+                .catch(err => {
+                    console.error('Locate country failed:', err)
+                })
+        },
+
         validateEmail(rule, value, callback) {
             console.log("validateEmail: value:" + value);
 
@@ -258,7 +332,14 @@ export default {
                 return true;
             });
         }
-        
+
+    },
+    watch: {
+        'formData.country'(country) {
+            if (country && this.map) {
+                this.locateCountry(country)
+            }
+        }
     }
 };
 </script>
