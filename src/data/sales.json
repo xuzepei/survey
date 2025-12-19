@@ -1,0 +1,74 @@
+[
+    {
+    "name": "Wei",
+    "photo": "Wei.jpg",
+    "country_code": ["US", "CA", "BR"],
+    "region": "North America",
+    "whatsapp": "+86 13917051124",
+    "email": "wei@panda-scanner.com"
+  },
+  {
+    "name": "Ida",
+    "photo": "Ida.jpg",
+    "country_code": ["ES","PT","GR","JO","AE","SA","PS","KW","QA","OM","BH","YE","TN","LY","ZA"],
+    "region": "Middle East and Africa",
+    "whatsapp": "+86 18112659708",
+    "email": "Ida@panda-scanner.com"
+  },
+  {
+    "name": "Hood",
+    "photo": "Hood.jpg",
+    "country_code": ["IQ","IR","SY","TR","IL","LB","MA","DZ","EG"],
+    "region": "Middle East and Africa",
+    "whatsapp": "+86 15262175655",
+    "email": "hood@panda-scanner.com"
+  },
+  {
+    "name": "Cheryl",
+    "photo": "Cheryl.jpg",
+    "country_code": ["KR","JP","TW","HK","MO","MY","PH","ID","SG","AU","NZ"],
+    "region": "East Asia",
+    "whatsapp": "+86 17351664212",
+    "email": "cheryl@panda-scanner.com"
+  },
+  {
+    "name": "Joy",
+    "photo": "Joy.jpg",
+    "country_code": ["PK","IN","AF","NP","LK","BD","KH","TH","VN","MM","LA"],
+    "region": "South Asia",
+    "whatsapp": "+86 18051543068",
+    "email": "joy@panda-scanner.com"
+  },
+  {
+    "name": "Sunny",
+    "photo": "Sunny.jpg",
+    "country_code": ["MD","RO","RS","BA","ME","MK","XK","AL","HR","SI","CZ","SK","HU","FR","PL","DK","SE","NO","IS"],
+    "region": "Eastern & Northern Europe",
+    "whatsapp": "+86 18015443068",
+    "email": "sunny@panda-scanner.com"
+  },
+  {
+    "name": "Dustin",
+    "photo": "Dustin.jpg",
+    "country_code": ["IT","DE","AT","CH","NL","LU","BE","GB","IE"],
+    "region": "Central & Western Europe",
+    "whatsapp": "+86 13320242429",
+    "email": "dustin@panda-scanner.com"
+  },
+  {
+    "name": "Eric",
+    "photo": "Eric.jpg",
+    "country_code": ["MX","CU","DO","GT","HN","NI","SV","CR","PA","VE","CO","PE","EC","CL","UY","PY","BO","AR"],
+    "region": "Central & South America",
+    "whatsapp": "+86 18012753068",
+    "email": "eric@panda-scanner.com"
+  },
+  {
+    "name": "Helen",
+    "photo": "Helen.jpg",
+    "country_code": ["RU","KZ","UZ","TJ","KG","TM","AZ","GE","AM","BG","BY","UA","EE","LV","LT"],
+    "region": "CIS",
+    "whatsapp": "+7 980 459-53-96",
+    "email": "helen@panda-scanner.com"
+  }
+]

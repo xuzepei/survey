@@ -4,7 +4,7 @@ body,
     min-height: 100%;
     margin: 0;
     padding: 0;
-    background-color: transparent;
+    background-color: var(--survey-bg-color);
 }
 
 /* 所有元素（包括伪元素）在计算宽度和高度时，包括了 padding 和 border，不会超出你设置的尺寸。 */

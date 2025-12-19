@@ -4,7 +4,8 @@ import Vue from 'vue'
 // import 'element-ui/lib/theme-chalk/index.css'
 // Vue.use(ElementUI)
 
-import { Button, Form, FormItem, Input, Message, Container, Header, Aside, Main, Menu, Submenu, MenuItemGroup, MenuItem, Select, Option, Link, Popover} from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import { Dialog, Button, Form, FormItem, Input, Message, Container, Header, Aside, Main, Menu, Submenu, MenuItemGroup, MenuItem, Select, Option, Link, Popover} from 'element-ui'
 
 //表单相关
 Vue.use(Button)
@@ -16,6 +17,8 @@ Vue.use(Option)
 
 Vue.use(Link)
 Vue.use(Popover)
+
+Vue.use(Dialog)
 
 //布局相关
 Vue.use(Container)
