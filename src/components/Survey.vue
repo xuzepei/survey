@@ -7,10 +7,13 @@
         <div class="title_card">
             <div class="card_content">
                 <h2>Panda Scanner - Support Survey</h2>
-                <p class="card_text">Dear Customer, thank you for your trust and support in our customer service over
-                    the past year! To better understand your service experience and help us improve our quality of
-                    service for the future, we invite you to participate in this survey. Your valuable feedback is
-                    extremely important to us. </p>
+                <p class="card_text">
+                    Thank you for your interest in Panda Scanner. To ensure that you receive timely and accurate
+                    support, please select your country or region so that we can assign the appropriate sales
+                    representative to assist you.
+                    <br><br>
+                    Your information will be used solely for support and service coordination purposes.
+                </p>
             </div>
         </div>
 
@@ -31,14 +34,17 @@
                 <div class="card_content">
                     <div class="form_title required">Country or Region</div>
                     <!-- Country -->
-                    <el-select v-model="formData.countryCode" filterable placeholder="Select country or region"
-                        :disabled="isRequesting" class="select_area" @visible-change="onCountryDropdown">
-                        <el-option v-for="item in countries" :key="item.code" :label="item.name" :value="item.code">
-                            <div class="multi-line-option">
-                                {{ item.name }}
-                            </div>
-                        </el-option>
-                    </el-select>
+                    <el-form-item prop="countryCode">
+                        <el-select v-model="formData.countryCode" filterable placeholder="Select country or region"
+                            :disabled="isRequesting" class="select_area" @visible-change="onCountryDropdown">
+                            <el-option v-for="item in countries" :key="item.code" :label="item.name" :value="item.code">
+                                <div class="multi-line-option">
+                                    {{ item.name }}
+                                </div>
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+
 
                     <!-- <div class="map_area">
                         <iframe class="map_iframe" src="https://www.google.com/maps?q=world&z=1&output=embed"
@@ -65,7 +71,7 @@
                         <div class="sales_subtitle">
                             {{ currentSales.length
                                 ? 'Our local sales representative will assist you with product inquiries and cooperation.'
-                                : 'Please ask on-site staff to assist in adding sales contact information.'
+                                : 'No sales contact is assigned to this region yet. Please ask on-site staff to assist in adding sales contact information.'
                             }}
                         </div>
                     </div>
@@ -105,6 +111,8 @@
                         <el-button type="primary" class="add_btn" @click="openAddDialog">
                             Add
                         </el-button>
+
+                        <!-- <el-button type="primary" size="medium" icon="el-icon-plus" circle @click="openAddDialog"></el-button> -->
                     </div>
                 </div>
 
@@ -154,6 +162,7 @@
 <style>
 .main_container {
     max-width: 600px;
+    min-width: 300px;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
@@ -448,14 +457,17 @@ export default {
             salesList: [],
             //登录表单数据绑定对象
             formData: {
-                email: this.$tool.isDev() ? "" : "",
-                countryName: this.$tool.isDev() ? "" : "",
-                countryCode: this.$tool.isDev() ? "" : "",
+                email: "",
+                countryName: "",
+                countryCode: "",
             },
             formRules: {
                 email: [
-                    { required: true, message: 'This is a required item.', trigger: 'blur' }, //trigger:blur(失去焦点), submit(点击submit) 
-                    { validator: this.validateEmail, trigger: 'submit' }
+                    { required: true, message: 'Please enter your email address.', trigger: 'blur' },
+                    { type: 'email', message: 'Please enter a valid email address.', trigger: 'blur' }
+                ],
+                countryCode: [
+                    { required: true, message: 'Please select your country or region.', trigger: 'change' },
                 ],
             },
             regionOptions: [{ label: "Mainland China", value: "cn" }, { label: "Europe", value: "eu" }, { label: "India", value: "in" }, { label: "Global", value: "en" }],
@@ -508,10 +520,22 @@ export default {
             })
 
             // 🌍 世界地图（OpenStreetMap）
+            //主要以当地语言显示的地图
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 18,
                 attribution: '&copy; OpenStreetMap'
             }).addTo(this.map)
+
+            
+            //主要以英文显示的地图
+            // L.tileLayer(
+            //     'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+            //     {
+            //         attribution: '&copy; OpenStreetMap & CartoDB'
+            //     }
+            // ).addTo(this.map)
+
+            
         },
 
         // ✅ 新增：国家定位
@@ -519,7 +543,7 @@ export default {
             if (!countryName || !this.map) return
 
             fetch(
-                `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(countryName)}&limit=1`
+                `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(countryName)}&limit=1&accept-language=en`
             )
                 .then(res => res.json())
                 .then(data => {
@@ -643,17 +667,22 @@ export default {
                 return false;
             }
 
+            if (this.isRequesting) {
+                console.log("Already requesting, please wait...");
+                return false;
+            }
 
             this.$refs.formRef.validate(async (valid) => {
                 console.log("valid:" + valid);
 
                 if (!valid) {
                     console.log("error submit!!");
-                    return false;
-                }
 
-                if (this.isRequesting) {
-                    console.log("Already requesting, please wait...");
+                    //显示校验失败的表单项
+                    this.$nextTick(() => {
+                        this.scrollToFirstError()
+                    })
+
                     return false;
                 }
 
@@ -688,8 +717,20 @@ export default {
 
                 return true;
             });
-        }
+        },
 
+        scrollToFirstError() {
+            const errorItem = this.$el.querySelector(
+                '.el-form-item.is-error'
+            )
+
+            if (errorItem) {
+                errorItem.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                })
+            }
+        }
     },
     watch: {
         'formData.countryCode'(countryCode) {

@@ -6,7 +6,7 @@
 
         <div class="title-div" v-pre>2. v-if 和 v-show</div>
         <hr>
-        <p v-if="isShow">这是通过 v-if 显示的内容</p>
+        <p v-if="isShow">这是通过 v-if 显示的内容</p>  
         <p v-show="isShow">这是通过 v-show 显示的内容</p>
 
         <div class="title-div" v-pre>3. v-bind 和 :</div>
@@ -596,9 +596,9 @@ export default {
             this.showTemplate = !this.showTemplate;
 
             //如果你在更新某个元素的内容后立即需要滚动到最底部，可以使用 Vue.nextTick 来确保 DOM 完成更新后再进行滚动操作：
-            this.$nextTick(() => {
-                this.scrollToBottom();
-            });
+            // this.$nextTick(() => {
+            //     this.scrollToBottom();
+            // });
 
         },
 
@@ -619,7 +619,7 @@ export default {
                 }
                 
                 todoIndex = this.todos.length
-                this.todos.push({ id: todoIndex, text: this.newTodo })
+                this.todos.push({ id: todoIndex, text: this.newTodo, done: false})
             }
         },
 
