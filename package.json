@@ -1,11 +1,13 @@
 {
+  "homepage": "https://xuzepei.github.io/survey/",
   "name": "survey",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@xenova/transformers": "^2.17.2",
@@ -29,6 +31,7 @@
     "babel-plugin-component": "^1.1.1",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "gh-pages": "^6.3.0",
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
     "vue-template-compiler": "^2.6.14"

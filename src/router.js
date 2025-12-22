@@ -14,27 +14,27 @@ import { userShared } from './plugins/User'
 Vue.use(Router)
 
 const router = new Router({
-    mode: 'history', // Use 'history' mode to avoid hash in URLs
+    mode: 'hash', // Use 'history' mode to avoid hash in URLs
     routes: [
         // { path: '/login', component: LoginTest },
         // { path: '/', redirect: '/login' },
-        {
-            path: '/', name: 'Home', component: Home, meta: {
-                requireAuth: true //need to login
-            }, children: [{
-                path: '/hello',
-                component: HelloWorld
-            }, {
-                path: '/dashboard',
-                component: Dashboard
-            }, {
-                path: '/cases',
-                component: Cases
-                }], //redirect: '/dashboard'
-        },
+        // {
+        //     path: '/', name: 'MyHelloWorld', component: Home, meta: {
+        //         requireAuth: false //need to login
+        //     }, children: [{
+        //         path: '/hello',
+        //         component: HelloWorld
+        //     }, {
+        //         path: '/dashboard',
+        //         component: Dashboard
+        //     }, {
+        //         path: '/cases',
+        //         component: Cases
+        //         }], //redirect: '/dashboard'
+        // },
         {path: '/survey', name: 'Survey', component: Survey},
         { path: '/login', name: 'Login', component: Login },
-        { path: '/demo', name: 'MyHelloWorld', component: MyHelloWorld },
+        { path: '/', name: 'MyHelloWorld', component: MyHelloWorld },
     ]
 })
 
