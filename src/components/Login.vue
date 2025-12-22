@@ -227,7 +227,7 @@
 <script>
 
 import { loginToolShared } from "@/plugins/LoginTool.js";
-import Errors from "@/plugins/Errors.js";
+import Errors from "@/plugins/errors.js";
 import { urlConfigShared } from '@/plugins/UrlConfig.js';
 import { userShared } from '@/plugins/User.js';
 import Keys from '@/plugins/keys.js';

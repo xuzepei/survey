@@ -129,7 +129,7 @@
         </el-form>
 
 
-        <el-dialog :visible.sync="editDialogVisible" :title="editDialogTitle" width="400px"
+        <el-dialog :visible.sync="editDialogVisible" :title="editDialogTitle" width="100%" class="edit-dialog"
             :close-on-click-modal="false" :append-to-body="true">
             <el-form ref="editFormRef" :model="editForm" :rules="editFormRules" label-width="90px">
                 <el-form-item label="Name" prop="name">
@@ -400,6 +400,18 @@ div {
 
 .add_btn {
   min-width: 100px;
+}
+
+.edit-dialog .el-dialog {
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+/* 小屏幕时，保证左右至少 20px */
+@media (max-width: 400px) {
+  .edit-dialog .el-dialog {
+    width: calc(100% - 40px) !important;
+  }
 }
 
 .button_area {
@@ -688,32 +700,42 @@ export default {
 
                 this.isRequesting = true;
 
-                // try {
-                //     // ✅ 使用 async/await 调用
-                //     const tokenInfo = await loginToolShared.loginAsync(
-                //         this.loginFormData.username,
-                //         this.loginFormData.password,
-                //         null,
-                //         1
-                //     );
+                try {
+                    // ✅ 使用 async/await 调用
+                    // const tokenInfo = await loginToolShared.loginAsync(
+                    //     this.loginFormData.username,
+                    //     this.loginFormData.password,
+                    //     null,
+                    //     1
+                    // );
 
-                //     this.isRequesting = false;
 
-                //     this.tokenInfo = tokenInfo;
-                //     userShared.saveLoginInfo(tokenInfo);
 
-                //     const msg = "Login succeeded!";
-                //     console.log(msg);
-                //     this.$message.success(msg);
+                    // 3 秒后跳转
+                    setTimeout(() => {
+                        this.$router.push({
+                            path: '/lottery',
+                            query: {
+                            }
+                        });
+                    }, 3000);
 
-                //     this.$router.push("/");
-                // } catch (err) {
-                //     this.isRequesting = false;
+                    this.isRequesting = false;
 
-                //     const error = Errors.getLoginError(err?.code || err);
-                //     console.error("Login failed: ", error);
-                //     this.$message.error("Login failed: " + error);
-                // }
+                    localStorage.setItem('survey_submitted', 'true')
+                    localStorage.setItem('survey_email', this.formData.email)
+                    
+                    const msg = "Submit succeeded!";
+                    console.log(msg);
+                    this.$message.success(msg);
+
+                } catch (err) {
+                    this.isRequesting = false;
+
+                    const error = "";//Errors.getLoginError(err?.code || err);
+                    console.error("Login failed: ", error);
+                    this.$message.error("Login failed: " + error);
+                }
 
                 return true;
             });
