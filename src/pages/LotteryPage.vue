@@ -1,8 +1,6 @@
 <template>
-    <div class="page-bg">
-        <div class="main_container">
-
-            <!-- 🎁 Gift 背景装饰 -->
+    <PageLayout>
+        <PageContainer>
             <div class="gift-bg">
                 <img v-for="(gift, index) in gifts" :key="index" :src="gift.src" class="gift-item" :class="gift.class"
                     :style="gift.style" />
@@ -60,13 +58,19 @@
                     </div>
                 </transition>
             </div>
-        </div>
-    </div>
-
+        </PageContainer>
+    </PageLayout>
 </template>
 
 <script>
+import PageLayout from '@/layouts/PageLayout.vue'
+import PageContainer from '@/layouts/PageContainer.vue'
+
 export default {
+    components: {
+        PageLayout,
+        PageContainer
+    },
     data() {
         return {
             gifts: [
@@ -81,7 +85,7 @@ export default {
                 {
                     src: require('@/assets/images/gift_4.png'),
                     class: 'gift-swing-only',
-                    style: { top: '180px', left: '40px', width: '77px'}
+                    style: { top: '180px', left: '40px', width: '77px' }
                 },
                 {
                     src: require('@/assets/images/gift_6.png'),
@@ -145,7 +149,7 @@ export default {
     methods: {
         spin() {
             if (this.isSpinning || this.hasDrawn) return
-            
+
             this.isSpinning = true
             this.result = ''
 
@@ -194,28 +198,13 @@ export default {
 </script>
 
 <style scoped>
-
 .page-bg {
-    min-height: 100vh;
-    width: 100%;
     background-color: white;
-    display: flex;
-    justify-content: center;
-    /* 水平居中 main_container */
 }
 
-/* 基础背景设置 */
-.main_container {
-    width: 100%;          /* ⭐ 核心 */
-    max-width: 600px;
-    min-width: 300px;
-    padding: 20px;
-    background-color: transparent;
-
+.page-container {
     position: relative;
-    /* ⭐ 关键 */
     overflow: hidden;
-    /* ⭐ 防止 gift 溢出 */
 }
 
 /* 🎁 Gift 背景层 */
@@ -223,7 +212,8 @@ export default {
     position: absolute;
     top: 0;
     left: 50%;
-    width: 100%;              /* ⭐ 固定设计宽度 */
+    width: 100%;
+    /* ⭐ 固定设计宽度 */
     height: 100%;
     transform: translateX(-50%);
 
@@ -242,12 +232,14 @@ export default {
 /* gift_4：左右摇摆，覆盖默认动画 */
 .gift-swing-only {
     animation: gift-swing 3s ease-in-out infinite !important;
-    transform-origin: center center; /* 像挂着一样晃 */
+    transform-origin: center center;
+    /* 像挂着一样晃 */
 }
 
 .gift-swing-2 {
     animation: gift-swing 1s ease-in-out infinite !important;
-    transform-origin: center center; /* 像挂着一样晃 */
+    transform-origin: center center;
+    /* 像挂着一样晃 */
 }
 
 /* 浮动动画 */
@@ -255,9 +247,11 @@ export default {
     0% {
         transform: translateY(0) rotate(0deg);
     }
+
     50% {
         transform: translateY(-15px) rotate(6deg);
     }
+
     100% {
         transform: translateY(0) rotate(0deg);
     }
@@ -267,9 +261,11 @@ export default {
     0% {
         transform: rotate(-8deg);
     }
+
     50% {
         transform: rotate(8deg);
     }
+
     100% {
         transform: rotate(-8deg);
     }
@@ -359,7 +355,8 @@ export default {
 .actions {
     margin-top: 80px;
     text-align: center;
-    position: relative; /* ⭐ 关键 */
+    position: relative;
+    /* ⭐ 关键 */
 }
 
 .submit_btn {

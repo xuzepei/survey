@@ -1,162 +1,162 @@
 <template>
-    <div class="main_container">
-        <div class="logo_group">
-            <img src="@/assets/images/logo.png" />
-        </div>
-
-        <div class="title_card">
-            <div class="card_content">
-                <h2>Panda Scanner - Support Survey</h2>
-                <p class="card_text">
-                    Thank you for your interest in Panda Scanner. To ensure that you receive timely and accurate
-                    support, please select your country or region so that we can assign the appropriate sales
-                    representative to assist you.
-                    <br><br>
-                    Your information will be used solely for support and service coordination purposes.
-                </p>
+    <PageLayout>
+        <PageContainer>
+            <div class="logo_group">
+                <img src="@/assets/images/logo.png" />
             </div>
-        </div>
 
-        <!-- Form -->
-        <el-form ref="formRef" class="survey_form" label-width="0px" :model="formData" :rules="formRules">
-            <div class="email_card">
+            <div class="title_card">
                 <div class="card_content">
-                    <div class="form_title required">Email</div>
-                    <!-- Email -->
-                    <el-form-item prop="email">
-                        <el-input v-model="formData.email" prefix-icon="iconfont icon-yonghu"
-                            placeholder="Your email" @keyup.enter.native="blurActiveElement"></el-input>
-                    </el-form-item>
+                    <h2>Panda Scanner - Support Survey</h2>
+                    <p class="card_text">
+                        Thank you for your interest in Panda Scanner. To ensure that you receive timely and accurate
+                        support, please select your country or region so that we can assign the appropriate sales
+                        representative to assist you.
+                        <br><br>
+                        Your information will be used solely for support and service coordination purposes.
+                    </p>
                 </div>
             </div>
 
-            <div class="country_card">
-                <div class="card_content">
-                    <div class="form_title required">Country or Region</div>
-                    <!-- Country -->
-                    <el-form-item prop="countryCode">
-                        <el-select v-model="formData.countryCode" filterable placeholder="Select country or region"
-                            :disabled="isRequesting" class="select_area" @visible-change="onCountryDropdown">
-                            <el-option v-for="item in countries" :key="item.code" :label="item.name" :value="item.code">
-                                <div class="multi-line-option">
-                                    {{ item.name }}
-                                </div>
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
+            <!-- Form -->
+            <el-form ref="formRef" class="survey_form" label-width="0px" :model="formData" :rules="formRules">
+                <div class="email_card">
+                    <div class="card_content">
+                        <div class="form_title required">Email</div>
+                        <!-- Email -->
+                        <el-form-item prop="email">
+                            <el-input v-model="formData.email" prefix-icon="iconfont icon-yonghu"
+                                placeholder="Your email" @keyup.enter.native="blurActiveElement"></el-input>
+                        </el-form-item>
+                    </div>
+                </div>
+
+                <div class="country_card">
+                    <div class="card_content">
+                        <div class="form_title required">Country or Region</div>
+                        <!-- Country -->
+                        <el-form-item prop="countryCode">
+                            <el-select v-model="formData.countryCode" filterable placeholder="Select country or region" no-match-text="No matching data"
+                                :disabled="isRequesting" class="select_area" @visible-change="onCountryDropdown">
+                                <el-option v-for="item in countries" :key="item.code" :label="item.name"
+                                    :value="item.code">
+                                    <div class="multi-line-option">
+                                        {{ item.name }}
+                                    </div>
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
 
 
-                    <!-- <div class="map_area">
+                        <!-- <div class="map_area">
                         <iframe class="map_iframe" src="https://www.google.com/maps?q=world&z=1&output=embed"
                             loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div> -->
 
-                    <div class="map_area">
-                        <div ref="map" class="leaflet_map"></div>
-                    </div>
+                        <div class="map_area">
+                            <div ref="map" class="leaflet_map"></div>
+                        </div>
 
+                    </div>
                 </div>
-            </div>
 
-            <!-- Sales Card（独立卡片） -->
-            <div v-if="formData.countryCode" class="sales_contact_card">
-                <div class="card_content">
-                    <div class="sales_header">
-                        <div v-if="currentSales.length" class="sales_title">
-                            Your Regional Sales Contact
+                <!-- Sales Card（独立卡片） -->
+                <div v-if="formData.countryCode" class="sales_contact_card">
+                    <div class="card_content">
+                        <div class="sales_header">
+                            <div v-if="currentSales.length" class="sales_title">
+                                Your Regional Sales Contact
+                            </div>
+                            <div v-else class="sales_title required">
+                                Add Sales Contact
+                            </div>
+                            <div class="sales_subtitle">
+                                {{ currentSales.length
+                                    ? 'Our local sales representative will assist you with product inquiries and
+                                cooperation.'
+                                : 'No sales contact is assigned to this region yet. Please ask on-site staff to assist
+                                    in adding sales contact information.'
+                                }}
+                            </div>
                         </div>
-                        <div v-else class="sales_title required">
-                            Add Sales Contact
-                        </div>
-                        <div class="sales_subtitle">
-                            {{ currentSales.length
-                                ? 'Our local sales representative will assist you with product inquiries and cooperation.'
-                                : 'No sales contact is assigned to this region yet. Please ask on-site staff to assist in adding sales contact information.'
-                            }}
-                        </div>
-                    </div>
 
-                    <div v-if="currentSales.length" class="sales_card_wrapper">
-                        <div class="sales_area">
-                            <div v-for="sale in currentSales" :key="sale.email" class="sales_card">
-                                <img :src="sale.photo" class="sales_avatar" />
+                        <div v-if="currentSales.length" class="sales_card_wrapper">
+                            <div class="sales_area">
+                                <div v-for="sale in currentSales" :key="sale.email" class="sales_card">
+                                    <img :src="sale.photo" class="sales_avatar" />
 
-                                <div class="sales_info">
-                                    <div class="sales_name">{{ sale.name }}</div>
-                                    <div class="sales_region">{{ sale.region }}</div>
+                                    <div class="sales_info">
+                                        <div class="sales_name">{{ sale.name }}</div>
+                                        <div class="sales_region">{{ sale.region }}</div>
 
-                                    <a :href="`https://wa.me/${sale.whatsapp.replace(/\D/g, '')}`" target="_blank"
-                                        class="sales_link whatsapp">
-                                        <span class="label">WhatsApp:</span>
-                                        <span class="value">{{ sale.whatsapp }}</span>
-                                    </a>
+                                        <a :href="`https://wa.me/${sale.whatsapp.replace(/\D/g, '')}`" target="_blank"
+                                            class="sales_link whatsapp">
+                                            <span class="label">WhatsApp:</span>
+                                            <span class="value">{{ sale.whatsapp }}</span>
+                                        </a>
 
-                                    <a :href="`mailto:${sale.email}`" class="sales_link email">
-                                        <span class="label">Email:</span>
-                                        <span class="value">{{ sale.email }}</span>
-                                    </a>
+                                        <a :href="`mailto:${sale.email}`" class="sales_link email">
+                                            <span class="label">Email:</span>
+                                            <span class="value">{{ sale.email }}</span>
+                                        </a>
 
-                                    <!-- 编辑按钮 -->
-                                    <el-button class="edit_btn" type="text" @click="openEditDialog(sale)">
-                                        <i class="el-icon-edit"></i>
-                                    </el-button>
+                                        <!-- 编辑按钮 -->
+                                        <el-button class="edit_btn" type="text" @click="openEditDialog(sale)">
+                                            <i class="el-icon-edit"></i>
+                                        </el-button>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- 没有销售人员（空态） -->
+                        <div v-else class="sales_empty">
+                            <el-button type="primary" class="add_btn" @click="openAddDialog">
+                                Add
+                            </el-button>
+
+                            <!-- <el-button type="primary" size="medium" icon="el-icon-plus" circle @click="openAddDialog"></el-button> -->
+                        </div>
                     </div>
 
-                    <!-- 没有销售人员（空态） -->
-                    <div v-else class="sales_empty">
-                        <el-button type="primary" class="add_btn" @click="openAddDialog">
-                            Add
-                        </el-button>
-
-                        <!-- <el-button type="primary" size="medium" icon="el-icon-plus" circle @click="openAddDialog"></el-button> -->
-                    </div>
                 </div>
 
-            </div>
+                <!-- 按钮区 -->
+                <div class="button_area">
+                    <el-form-item style="display: flex; justify-content: center;">
+                        <el-button class="submit_btn" type="primary" @click="submit"
+                            :loading="isRequesting">Submit</el-button>
+                    </el-form-item>
+                </div>
 
-            <!-- 按钮区 -->
-            <div class="button_area">
-                <el-form-item style="display: flex; justify-content: center;">
-                    <el-button class="submit_btn" type="primary" @click="submit"
-                        :loading="isRequesting">Submit</el-button>
-                </el-form-item>
-            </div>
-
-        </el-form>
-
-
-        <el-dialog :visible.sync="editDialogVisible" :title="editDialogTitle" width="100%" class="edit-dialog"
-            :close-on-click-modal="false" :append-to-body="true">
-            <el-form ref="editFormRef" :model="editForm" :rules="editFormRules" label-width="90px">
-                <el-form-item label="Name" prop="name">
-                    <el-input v-model="editForm.name" />
-                </el-form-item>
-
-                <el-form-item label="WhatsApp">
-                    <el-input v-model="editForm.whatsapp" />
-                </el-form-item>
-
-                <el-form-item label="Email" prop="email">
-                    <el-input v-model="editForm.email" />
-                </el-form-item>
             </el-form>
 
-            <!-- Vue 2 写法的 footer slot -->
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="editDialogVisible = false">Cancel</el-button>
-                <el-button type="primary" @click="saveEdit">Save</el-button>
-            </span>
-        </el-dialog>
 
+            <el-dialog :visible.sync="editDialogVisible" :title="editDialogTitle" width="100%" class="edit-dialog"
+                :close-on-click-modal="false" :append-to-body="true">
+                <el-form ref="editFormRef" :model="editForm" :rules="editFormRules" label-width="90px">
+                    <el-form-item label="Name" prop="name">
+                        <el-input v-model="editForm.name" />
+                    </el-form-item>
 
-    </div>
+                    <el-form-item label="WhatsApp">
+                        <el-input v-model="editForm.whatsapp" />
+                    </el-form-item>
 
+                    <el-form-item label="Email" prop="email">
+                        <el-input v-model="editForm.email" />
+                    </el-form-item>
+                </el-form>
 
-
+                <!-- Vue 2 写法的 footer slot -->
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="editDialogVisible = false">Cancel</el-button>
+                    <el-button type="primary" @click="saveEdit">Save</el-button>
+                </span>
+            </el-dialog>
+        </PageContainer>
+    </PageLayout>
 </template>
 
 <style>
@@ -441,12 +441,19 @@ import 'leaflet/dist/leaflet.css'
 import salesData from '@/data/sales.json'
 import defaultPhoto from '@/assets/sales/default.png'
 
+import PageLayout from '@/layouts/PageLayout.vue'
+import PageContainer from '@/layouts/PageContainer.vue'
+
 function normalizeCountryName(name) {
     return name.replace(/\s*\(the\)$/i, '')
 }
 
 
 export default {
+    components: {
+        PageLayout,
+        PageContainer
+    },
     mounted() {
         console.log('Survey has been mounted!');
         this.initMap();
