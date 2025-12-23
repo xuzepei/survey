@@ -63,7 +63,7 @@ router.beforeEach(async (to, from, next) => {
         const surveySubmitted = localStorage.getItem('survey_submitted')
         if (!surveySubmitted) {
             // ❌ 未提交 Survey，不允许访问
-            return next('/survey')
+            return next('/')
         }
     } 
 

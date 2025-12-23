@@ -25,7 +25,7 @@
                     <!-- Email -->
                     <el-form-item prop="email">
                         <el-input v-model="formData.email" prefix-icon="iconfont icon-yonghu"
-                            placeholder="Your email"></el-input>
+                            placeholder="Your email" @keyup.enter.native="blurActiveElement"></el-input>
                     </el-form-item>
                 </div>
             </div>
@@ -168,6 +168,14 @@
     padding: 20px;
     background-color: var(--survey-bg-color);
     margin-top: 0px;
+
+    min-height: 100vh;
+}
+
+/* 禁止移动端输入框触发自动放大 */
+.el-input__inner,
+.el-textarea__inner {
+    font-size: 16px !important;
 }
 
 div {
@@ -713,6 +721,18 @@ export default {
 
                     // 3 秒后跳转
                     setTimeout(() => {
+
+                        this.isRequesting = false;
+
+                        localStorage.setItem('survey_submitted', 'true')
+                        localStorage.setItem('survey_email', this.formData.email)
+
+                        const msg = "Submit succeeded!";
+                        console.log(msg);
+                        this.$message.success(msg);
+
+
+                        setTimeout(() => {
                         this.$router.push({
                             path: '/lottery',
                             query: {
@@ -720,14 +740,10 @@ export default {
                         });
                     }, 3000);
 
-                    this.isRequesting = false;
 
-                    localStorage.setItem('survey_submitted', 'true')
-                    localStorage.setItem('survey_email', this.formData.email)
-                    
-                    const msg = "Submit succeeded!";
-                    console.log(msg);
-                    this.$message.success(msg);
+                    }, 1000);
+
+
 
                 } catch (err) {
                     this.isRequesting = false;
@@ -751,6 +767,13 @@ export default {
                     behavior: 'smooth',
                     block: 'center'
                 })
+            }
+        },
+
+        blurActiveElement() {
+            const el = document.activeElement
+            if (el && typeof el.blur === 'function') {
+                el.blur()
             }
         }
     },
