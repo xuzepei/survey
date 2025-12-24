@@ -1,21 +1,49 @@
 {
   "id": "4684497",
-  "name": "test",
+  "name": "panda",
   "font_family": "iconfont",
   "css_prefix_text": "icon-",
   "description": "",
   "glyphs": [
     {
+      "icon_id": "8263387",
+      "name": "country",
+      "font_class": "country",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "433840",
+      "name": "email",
+      "font_class": "email",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "27031536",
+      "name": "whatsapp",
+      "font_class": "whatsapp",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "44422004",
+      "name": "delete",
+      "font_class": "delete",
+      "unicode": "e68e",
+      "unicode_decimal": 59022
+    },
+    {
       "icon_id": "978324",
-      "name": "用户",
-      "font_class": "yonghu",
+      "name": "user",
+      "font_class": "user",
       "unicode": "e638",
       "unicode_decimal": 58936
     },
     {
       "icon_id": "8765228",
-      "name": "密码",
-      "font_class": "mima",
+      "name": "password",
+      "font_class": "password",
       "unicode": "e635",
       "unicode_decimal": 58933
     }

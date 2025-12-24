@@ -1,23 +1,39 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4684497 */
-  src: url('iconfont.woff2?t=1726240119260') format('woff2'),
-       url('iconfont.woff?t=1726240119260') format('woff'),
-       url('iconfont.ttf?t=1726240119260') format('truetype');
+  src: url('iconfont.woff2?t=1766554397759') format('woff2'),
+       url('iconfont.woff?t=1766554397759') format('woff'),
+       url('iconfont.ttf?t=1766554397759') format('truetype');
 }
 
 .iconfont {
   font-family: "iconfont" !important;
-  font-size: 20px;
+  font-size: 22px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-yonghu:before {
+.icon-country:before {
+  content: "\e609";
+}
+
+.icon-email:before {
+  content: "\e639";
+}
+
+.icon-whatsapp:before {
+  content: "\e63a";
+}
+
+.icon-delete:before {
+  content: "\e68e";
+}
+
+.icon-user:before {
   content: "\e638";
 }
 
-.icon-mima:before {
+.icon-password:before {
   content: "\e635";
 }
 

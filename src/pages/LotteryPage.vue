@@ -1,6 +1,6 @@
 <template>
     <PageLayout>
-        <PageContainer>
+        <MobilePageContainer>
             <div class="gift-bg">
                 <img v-for="(gift, index) in gifts" :key="index" :src="gift.src" class="gift-item" :class="gift.class"
                     :style="gift.style" />
@@ -58,18 +58,18 @@
                     </div>
                 </transition>
             </div>
-        </PageContainer>
+        </MobilePageContainer>
     </PageLayout>
 </template>
 
 <script>
 import PageLayout from '@/layouts/PageLayout.vue'
-import PageContainer from '@/layouts/PageContainer.vue'
+import MobilePageContainer from '@/layouts/MobilePageContainer.vue'
 
 export default {
     components: {
         PageLayout,
-        PageContainer
+        MobilePageContainer
     },
     data() {
         return {
@@ -202,7 +202,7 @@ export default {
     background-color: white;
 }
 
-.page-container {
+.mobile-page-container {
     position: relative;
     overflow: hidden;
 }

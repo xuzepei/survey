@@ -1,11 +1,11 @@
 {
-  "homepage": "https://xuzepei.github.io/survey/",
   "name": "Survey",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --mode production",
+    "build:github": "vue-cli-service build --mode github",
     "lint": "vue-cli-service lint",
     "deploy": "gh-pages -d dist"
   },

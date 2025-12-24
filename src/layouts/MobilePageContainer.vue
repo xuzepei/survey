@@ -1,12 +1,12 @@
-<!-- layouts/PageContainer.vue -->
+<!-- layouts/MobilePageContainer.vue -->
 <template>
-    <div class="page-container">
+    <div class="mobile-page-container">
         <slot />
     </div>
 </template>
 
 <style scoped>
-.page-container {
+.mobile-page-container {
     width: 100%;
     max-width: 600px;
     min-width: 300px;

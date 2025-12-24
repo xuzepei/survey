@@ -10,12 +10,12 @@
                 :rules="loginFormRules">
                 <!-- 用户名 -->
                 <el-form-item prop="username">
-                    <el-input v-model="loginFormData.username" prefix-icon="iconfont icon-yonghu"
+                    <el-input v-model="loginFormData.username" prefix-icon="iconfont icon-user"
                         placeholder="请输入用户名"></el-input>
                 </el-form-item>
                 <!-- 密码 -->
                 <el-form-item prop="password">
-                    <el-input v-model="loginFormData.password" prefix-icon="iconfont icon-mima" placeholder="请输入密码"
+                    <el-input v-model="loginFormData.password" prefix-icon="iconfont icon-password" placeholder="请输入密码"
                         :type="showPassword ? 'text' : 'password'">
                         <!-- 尾部图标 -->
                         <template slot="suffix">

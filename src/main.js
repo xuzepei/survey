@@ -28,7 +28,7 @@ import colors from '@/plugins/colors';
 Vue.prototype.$colors = colors;
 
 // 在Vue实例创建前调用
-urlConfigShared.fetchAPIHostUrl(Vue.prototype.$http);
+//urlConfigShared.fetchAPIHostUrl(Vue.prototype.$http);
 
 //生产环境下不产生控制台提示
 Vue.config.productionTip = false

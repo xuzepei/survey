@@ -66,9 +66,17 @@
   {
     "name": "Helen",
     "photo": "Helen.jpg",
-    "country_code": ["RU","KZ","UZ","TJ","KG","TM","AZ","GE","AM","BG","BY","UA","EE","LV","LT"],
+    "country_code": ["RU","KZ","UZ","TJ","KG","TM","AZ","GE","AM","BG","BY","UA"],
     "region": "CIS",
     "whatsapp": "+7 980 459-53-96",
     "email": "helen@panda-scanner.com"
+  },
+  {
+    "name": "Ricky",
+    "photo": "Ricky.jpg",
+    "country_code": ["EE","LV","LT"],
+    "region": "Global",
+    "whatsapp": "+86 18550589129",
+    "email": "ricky@panda-scanner.com"
   }
 ]

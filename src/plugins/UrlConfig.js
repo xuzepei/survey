@@ -3,14 +3,14 @@ import { userShared } from './User.js';
 class UrlConfig {
 
     baseUrlList = [
-        { region: "cn", url: "https://cn.freqtek.com" },
-        { region: "eu", url: "https://eu.freqtek.com" },
-        { region: "in", url: "https://in.freqtek.com" },
+        // { region: "cn", url: "https://cn.freqtek.com" },
+        // { region: "eu", url: "https://eu.freqtek.com" },
+        // { region: "in", url: "https://in.freqtek.com" },
         { region: "en", url: "https://en.freqtek.com" },
     ];
 
     getBaseUrl() {
-        const region = userShared.getRegion();
+        const region = 'en'; //userShared.getRegion();
         const default_base_url = this.baseUrlList[0].url;
 
         if (!region) {
@@ -131,6 +131,10 @@ class UrlConfig {
         }
 
         return "";
+    }
+
+    surveySubmitUrl() {
+        return this.getBaseUrl() + "/quest/answer/submit";
     }
 
 }
