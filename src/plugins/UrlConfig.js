@@ -10,15 +10,19 @@ class UrlConfig {
     ];
 
     getBaseUrl() {
-        const region = 'en'; //userShared.getRegion();
-        const default_base_url = this.baseUrlList[0].url;
 
-        if (!region) {
-            return "";
-        }
+        console.log("VUE_APP_API_BASE =", process.env.VUE_APP_API_BASE);
+        return process.env.VUE_APP_API_BASE;
 
-        const match = this.baseUrlList.find(item => item.region === region);
-        return match ? match.url : default_base_url;
+        // const region = userShared.getRegion();
+        // const default_base_url = this.baseUrlList[0].url;
+
+        // if (!region) {
+        //     return "";
+        // }
+
+        // const match = this.baseUrlList.find(item => item.region === region);
+        // return match ? match.url : default_base_url;
     }
 
     async fetchAPIHostUrl(axiosInstance) {
@@ -135,6 +139,10 @@ class UrlConfig {
 
     surveySubmitUrl() {
         return this.getBaseUrl() + "/quest/answer/submit";
+    }
+
+    fetchClientsUrl() {
+        return this.getBaseUrl() + "/quest/answer/find";
     }
 
 }

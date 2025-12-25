@@ -541,7 +541,7 @@ export default {
 
             try {
 
-                const uuid = crypto.randomUUID()
+                const uuid = this.$tool.surveyId //crypto.randomUUID()
                 const urlString = urlConfigShared.surveySubmitUrl();
                 console.log("Request: " + urlString);
 
@@ -554,6 +554,7 @@ export default {
                 answercontent.countryName = formData.countryName;
                 answercontent.countryCode = formData.countryCode;
                 answercontent.occupation = formData.occupation;
+                answercontent.salesContact = JSON.stringify(this.currentSales[0] || {});
 
                 var dataBody = {}
                 dataBody.questId = uuid;
@@ -976,7 +977,7 @@ div {
   border: 1px solid #e5e7eb;
   box-sizing: border-box;
   transition: all 0.2s ease;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 /* hover */

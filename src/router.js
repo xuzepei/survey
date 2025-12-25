@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/Login.vue'
+import Login from '@/pages/LoginPage.vue'
 import Home from '@/components/Home.vue'
 import MyHelloWorld from '@/components/MyHelloWorld.vue'
 import Survey from '@/pages/SurveyPage.vue'
 import Lottery from '@/pages/LotteryPage.vue'
+import ClientList from '@/pages/ClientListPage.vue'
 import HelloWorld from '@/components/HelloWorld.vue'
 import Dashboard from '@/components/Dashboard.vue'
 import Cases from '@/components/Cases.vue'
@@ -17,43 +18,28 @@ Vue.use(Router)
 const router = new Router({
     mode: 'hash', // Use 'history' mode to avoid hash in URLs
     routes: [
-        // { path: '/login', component: LoginTest },
-        // { path: '/', redirect: '/login' },
-        // {
-        //     path: '/', name: 'MyHelloWorld', component: Home, meta: {
-        //         requireAuth: false //need to login
-        //     }, children: [{
-        //         path: '/hello',
-        //         component: HelloWorld
-        //     }, {
-        //         path: '/dashboard',
-        //         component: Dashboard
-        //     }, {
-        //         path: '/cases',
-        //         component: Cases
-        //         }], //redirect: '/dashboard'
-        // },
-        // {path: '/survey', name: 'Survey', component: Survey},
-        // { path: '/login', name: 'Login', component: Login },
+        {
+            path: '/clients', name: 'ClientList', component: ClientList, meta: {
+                requireAuth: true //need to login
+            }, children: [], //redirect: '/dashboard'
+        },
+        { path: '/login', name: 'Login', component: Login },
         { path: '/lottery', name: 'Lottery', component: Lottery },
         { path: '/', name: 'Survey', component: Survey},
     ]
 })
-
-// Token已经刷新过
-let tokenRefreshed = false
 
 //路由守卫
 router.beforeEach(async (to, from, next) => {
 
     console.log("Check if it is logged in...")
 
-    let isLoggedIn = true
-    const accessToken = localStorage.getItem(Keys.access_token) //window.sessionStorage.getItem("AccessToken")
-    if (!accessToken) {
+    let isLoggedIn = false
+    const is_login = window.sessionStorage.getItem(Keys.is_login)
+    if (!is_login) {
         isLoggedIn = false
     } else {
-        console.log("accessToken: " + accessToken)
+        isLoggedIn = true
     }
 
     console.log("isLoggedIn: " + isLoggedIn)
@@ -79,34 +65,12 @@ router.beforeEach(async (to, from, next) => {
                 return next() // 已经在登录页，直接放行
             }
         } else {
-
-            // 如果是登录成功刚跳转来的，不刷新 Token
-            if (from.path === '/login' && !tokenRefreshed) {
-                tokenRefreshed = true
-                console.log("router: " + "如果是登录成功刚跳转来的，不刷新 Token")
-                return next()
-            }
-
-            // 其他情况：未刷新过 Token 则刷新
-            if (!tokenRefreshed) {
-                console.log("router: " + "其他情况：未刷新过 Token 则刷新")
-                try {
-                    const tokenInfo = await loginToolShared.refreshTokenAsync()
-                    userShared.upateTokenInfoByRefreshing(tokenInfo)
-
-                    tokenRefreshed = true
-                    return next() // 继续导航
-                } catch (e) {
-                    console.error("Token refresh failed:", e)
-
-                    //清除登录信息
-                    userShared.logout();
-
-                    return next('/login')
-                }
-            }
-
-            return next()
+            // 如果是登录成功刚跳转来的
+            // if (from.path === '/login') {
+            //     console.log("router: " + "如果是登录成功刚跳转来的")
+            //     return next()
+            // }
+            //return next()
         }
     }
 

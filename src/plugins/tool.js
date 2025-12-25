@@ -24,6 +24,11 @@ import Vue from 'vue'
 // };
 
 const Tool = {
+
+  surveyId : "8f0b0d5a-7d2f-4b1e-9f8e-6c5f6a2a3c41",
+  adminHash : "20442b1ce6672880847e0398f991b557",
+
+
 /**
  * 忽略大小写获取对象属性值
  * @param {Object} obj - 要查询的对象
@@ -61,6 +66,12 @@ const Tool = {
     }, 3000);
     return true;
   },
+
+  formatTime(utcStr) {
+    if (!utcStr) return ''
+    const date = new Date(utcStr.replace(/\//g, '-'))
+    return date.toLocaleString()
+  }
 };
 
 // 挂载到 Vue 原型
