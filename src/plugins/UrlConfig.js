@@ -138,11 +138,11 @@ class UrlConfig {
     }
 
     surveySubmitUrl() {
-        return this.getBaseUrl() + "/quest/answer/submit";
+        return this.getBaseUrl() + "/answer/submit";
     }
 
     fetchClientsUrl() {
-        return this.getBaseUrl() + "/quest/answer/find";
+        return this.getBaseUrl() + "/answer/find";
     }
 
 }

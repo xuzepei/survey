@@ -204,21 +204,23 @@ export default {
                 this.isRequesting = true;
 
                 try {
-
-                    console.log("md5:" + md5(this.loginFormData.password));
+                    
+                    //console.log("md5:" + md5(this.loginFormData.password));
 
                     if (this.loginFormData.username === "Admin" && md5(this.loginFormData.password) === this.$tool.adminHash) {
                         this.isRequesting = false;
 
                         window.sessionStorage.setItem(Keys.is_login, true);
 
-                        const msg = "Login succeeded!";
-                        console.log(msg);
-                        this.$message.success(msg);
+                        // const msg = "Login succeeded!";
+                        // console.log(msg);
+                        // this.$message.success(msg);
 
-                        setTimeout(() => {
-                            this.$router.push("/clients");
-                        }, 2000)
+                        // setTimeout(() => {
+                        //     this.$router.push("/clients");
+                        // }, 2000)
+
+                        this.$router.push("/clients");
 
                     } else {
 

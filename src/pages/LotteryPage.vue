@@ -54,6 +54,7 @@
                             <div class="result-label">CONGRATULATIONS!</div>
                             <div class="result-text">{{ result }}</div>
                             <button class="close-btn" @click="result = ''">COLLECT NOW</button>
+                            <div class="bottom-text">Limited gifts — first come, first served!</div>
                         </div>
                     </div>
                 </transition>
@@ -379,13 +380,13 @@ export default {
 }
 
 /* 结果卡片 */
-.result_card {
+/* .result_card {
     margin-top: 30px;
-    padding: 15px;
+    padding: 10px;
     background: #fff5f5;
     border-radius: 12px;
     border: 1px solid #ffe3e3;
-}
+} */
 
 .result-label {
     font-size: 12px;
@@ -397,6 +398,13 @@ export default {
     font-size: 22px;
     font-weight: bold;
     color: #c0392b;
+}
+
+.bottom-text {
+    margin-top: 25px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    color: gray;
 }
 
 /* 移动端适配：屏幕宽度小于 600px */
@@ -461,7 +469,8 @@ export default {
 .result_card {
     background: linear-gradient(135deg, #ffffff 0%, #fff8dc 100%);
     border: 6px solid #FFD700;
-    padding: 50px 40px;
+    padding: 40px 40px;
+    padding-bottom: 20px;
     border-radius: 30px;
     text-align: center;
     position: relative;

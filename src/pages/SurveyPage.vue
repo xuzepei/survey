@@ -136,7 +136,7 @@
                                         </a>
 
                                         <!-- 编辑按钮 -->
-                                        <el-button class="edit_btn" type="text" @click="openEditDialog(sale)">
+                                        <el-button class="edit_btn" v-show="false" type="text" @click="openEditDialog(sale)">
                                             <i class="el-icon-edit"></i>
                                         </el-button>
 
