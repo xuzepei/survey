@@ -6,6 +6,7 @@ import MyHelloWorld from '@/components/MyHelloWorld.vue'
 import Survey from '@/pages/SurveyPage.vue'
 import Lottery from '@/pages/LotteryPage.vue'
 import ClientList from '@/pages/ClientListPage.vue'
+import NotFound from '@/pages/NotFoundPage.vue'
 import HelloWorld from '@/components/HelloWorld.vue'
 import Dashboard from '@/components/Dashboard.vue'
 import Cases from '@/components/Cases.vue'
@@ -26,6 +27,8 @@ const router = new Router({
         { path: '/login', name: 'Login', component: Login },
         { path: '/lottery', name: 'Lottery', component: Lottery },
         { path: '/', name: 'Survey', component: Survey},
+
+        { path: '*', name: 'NotFound', component: NotFound }
     ]
 })
 
