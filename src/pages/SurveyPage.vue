@@ -21,6 +21,16 @@
             <!-- Form -->
             <el-form ref="formRef" class="survey_form" label-width="0px" :model="formData" :rules="formRules">
 
+                <div class="company_card">
+                    <div class="card_content">
+                        <div class="form_title">Company</div>
+                        <el-form-item prop="company">
+                            <el-input v-model.trim="formData.company" prefix-icon="iconfont icon-company"
+                                placeholder="Your company" @keyup.enter.native="blurActiveElement"></el-input>
+                        </el-form-item>
+                    </div>
+                </div>
+
                 <div class="name_card">
                     <div class="card_content">
                         <div class="form_title required">Name</div>
@@ -252,6 +262,7 @@ export default {
             ],
             //登录表单数据绑定对象
             formData: {
+                company: "",
                 name: "",
                 email: "",
                 whatsapp: "",
@@ -271,11 +282,7 @@ export default {
                     { required: true, message: 'Please select your country or region.', trigger: 'change' },
                 ],
             },
-            regionOptions: [{ label: "Mainland China", value: "cn" }, { label: "Europe", value: "eu" }, { label: "India", value: "in" }, { label: "Global", value: "en" }],
-            region: "",
             isRequesting: false,
-            tokenInfo: null,
-            requestingHostUrl: false, //是否正在请求HostUrl
             map: null,
             countries: getNames().map(name => {
                 //console.log('country name:', name)
@@ -508,8 +515,8 @@ export default {
                         return;
                     }
 
-                    localStorage.setItem('survey_submitted', 'true')
                     localStorage.setItem('survey_email', this.formData.email)
+                    localStorage.setItem('survey_submitted', 'true')
 
                     const msg = "Submit succeeded!";
                     console.log(msg);
@@ -522,7 +529,7 @@ export default {
                             query: {
                             }
                         });
-                    }, 3000);
+                    }, 1000);
 
 
                 } catch (err) {
@@ -550,6 +557,7 @@ export default {
                 custInfo.email = formData.email;
 
                 var answercontent = {};
+                answercontent.company = formData.company;
                 answercontent.whatsapp = formData.whatsapp;
                 answercontent.countryName = formData.countryName;
                 answercontent.countryCode = formData.countryCode;
@@ -568,6 +576,7 @@ export default {
                 const response = await this.$http.post(encodeURI(urlString), dataBody);
                 console.log("response.statue: " + response.status);
                 console.log("Response: " + JSON.stringify(response.data, null, 2));
+
                 if (
                     response.status === 200 &&
                     response.headers['content-type']?.includes('application/json') &&
@@ -724,6 +733,7 @@ div {
     color: var(--card-text-color);
 }
 
+.company_card,
 .name_card,
 .email_card,
 .country_card,

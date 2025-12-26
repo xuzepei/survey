@@ -28,6 +28,7 @@
                     <el-table-column prop="date" label="Date" min-width="120" :resizable="true" />
                     <el-table-column prop="name" label="Name" min-width="120" />
                     <el-table-column prop="email" label="Email" min-width="120" />
+                    <el-table-column prop="company" label="Company" min-width="120" />
                     <el-table-column prop="whatsapp" label="WhatsApp" min-width="120" />
                     <el-table-column prop="occupation" label="Occupation" min-width="100" />
                     <el-table-column prop="countryName" label="Country" min-width="140" />
@@ -206,6 +207,7 @@ export default {
                 dict.date = this.$tool.formatTime(item.createTime) || "";
                 dict.name = info.name;
                 dict.email = info.email || "";
+                dict.company = answer.company || "";
                 dict.whatsapp = answer.whatsapp || "";
                 dict.occupation = answer.occupation || "";
                 dict.countryName = answer.countryName || "";
@@ -262,6 +264,7 @@ export default {
                         dict.date = this.$tool.formatTime(item.createTime) || "";
                         dict.name = info.name || "";
                         dict.email = info.email || "";
+                        dict.company = answer.company || "";
                         dict.whatsapp = answer.whatsapp || "";
                         dict.occupation = answer.occupation || "";
                         dict.countryName = answer.countryName || "";
@@ -293,6 +296,7 @@ export default {
                 Date: item.date,
                 Name: item.name,
                 Email: item.email,
+                Company: item.company,
                 WhatsApp: item.whatsapp,
                 Occupation: item.occupation,
                 Country: item.countryName,

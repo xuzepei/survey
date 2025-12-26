@@ -139,12 +139,12 @@ export default {
     },
 
     created() {
-        this.email = localStorage.getItem('survey_email') || 'Guest'
-        const record = localStorage.getItem(`lottery_${this.email}`)
-        if (record && this.email !== 'VIP') {
-            this.result = record
-            this.hasDrawn = true
-        }
+        this.email = 'VIP'
+        // const record = localStorage.getItem(`lottery_${this.email}`)
+        // if (record && this.email !== 'VIP') {
+        //     this.result = record
+        //     this.hasDrawn = true
+        // }
     },
 
     methods: {
@@ -177,7 +177,7 @@ export default {
                 this.result = this.prizes[prizeIndex].text
                 this.isSpinning = false
                 this.hasDrawn = true
-                localStorage.setItem(`lottery_${this.email}`, this.result)
+                //localStorage.setItem(`lottery_${this.email}`, this.result)
             }, 3000)
         },
 

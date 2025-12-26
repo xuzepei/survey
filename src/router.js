@@ -5,6 +5,7 @@ import Home from '@/components/Home.vue'
 import MyHelloWorld from '@/components/MyHelloWorld.vue'
 import Survey from '@/pages/SurveyPage.vue'
 import Lottery from '@/pages/LotteryPage.vue'
+import VIPLottery from '@/pages/VIPLotteryPage.vue'
 import ClientList from '@/pages/ClientListPage.vue'
 import HelloWorld from '@/components/HelloWorld.vue'
 import Dashboard from '@/components/Dashboard.vue'
@@ -25,6 +26,7 @@ const router = new Router({
         },
         { path: '/login', name: 'Login', component: Login },
         { path: '/lottery', name: 'Lottery', component: Lottery },
+        { path: '/vip', name: 'VIPLottery', component: VIPLottery },
         { path: '/', name: 'Survey', component: Survey},
     ]
 })
@@ -46,12 +48,16 @@ router.beforeEach(async (to, from, next) => {
 
     // 只拦 lottery 页面
     if (to.path === '/lottery') {
+
+        // localStorage.removeItem('survey_submitted')
+        // localStorage.removeItem('survey_email')
+
         const surveySubmitted = localStorage.getItem('survey_submitted')
         if (!surveySubmitted) {
             // ❌ 未提交 Survey，不允许访问
             return next('/')
         }
-    } 
+    }
 
     //要求登录的
     if (to.matched.some(record => record.meta.requireAuth)) {
