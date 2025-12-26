@@ -7,13 +7,11 @@
 
             <div class="title_card">
                 <div class="card_content">
-                    <h2>Panda Scanner - Support Survey</h2>
+                    <h2>{{$t('survey.title')}}</h2>
                     <p class="card_text">
-                        Thank you for your interest in Panda Scanner. To ensure that you receive timely and accurate
-                        support, please select your country or region so that we can assign the appropriate sales
-                        representative to assist you.
+                        {{ $t('survey.intro') }}
                         <br><br>
-                        Your information will be used solely for support and service coordination purposes.
+                        {{ $t('survey.intro2') }}
                     </p>
                 </div>
             </div>
@@ -23,29 +21,29 @@
 
                 <div class="name_card">
                     <div class="card_content">
-                        <div class="form_title required">Name</div>
+                        <div class="form_title required">{{$t('survey.name')}}</div>
                         <el-form-item prop="name">
                             <el-input v-model.trim="formData.name" prefix-icon="iconfont icon-user"
-                                placeholder="Your name" @keyup.enter.native="blurActiveElement"></el-input>
+                                :placeholder="$t('survey.placeholder.name')" @keyup.enter.native="blurActiveElement"></el-input>
                         </el-form-item>
                     </div>
                 </div>
 
                 <div class="email_card">
                     <div class="card_content">
-                        <div class="form_title required">Email</div>
+                        <div class="form_title required">{{$t('survey.email')}}</div>
                         <el-form-item prop="email">
                             <el-input v-model.trim="formData.email" prefix-icon="iconfont icon-email"
-                                placeholder="Your email" @keyup.enter.native="blurActiveElement"></el-input>
+                                :placeholder="$t('survey.placeholder.email')" @keyup.enter.native="blurActiveElement"></el-input>
                         </el-form-item>
                     </div>
                 </div>
 
                 <div class="whatsapp_card">
                     <div class="card_content">
-                        <div class="form_title">WhatsApp Number</div>
+                        <div class="form_title">{{$t('survey.whatsapp')}}</div>
                         <el-form-item prop="whatsapp">
-                            <el-input v-model.trim="formData.whatsapp" prefix-icon="iconfont icon-whatsapp" placeholder="e.g. +1 234 567 8900"
+                            <el-input v-model.trim="formData.whatsapp" prefix-icon="iconfont icon-whatsapp" :placeholder="$t('survey.placeholder.whatsapp')"
                                 @input="onWhatsappInput" @keyup.enter.native="blurActiveElement"></el-input>
                         </el-form-item>
                     </div>
@@ -53,7 +51,7 @@
                 
                 <div class="occupation_card">
                     <div class="card_content">
-                        <div class="form_title">Occupation</div>
+                        <div class="form_title">{{$t('survey.occupation')}}</div>
                         <el-form-item prop="occupation">
                             <el-radio-group v-model="formData.occupation" class="occupation_group">
                                 <el-radio v-for="item in occupationOptions" :key="item.value" :label="item.value"
@@ -67,10 +65,10 @@
 
                 <div class="country_card">
                     <div class="card_content">
-                        <div class="form_title required">Country or Region</div>
+                        <div class="form_title required">{{$t('survey.country')}}</div>
                         <!-- Country -->
                         <el-form-item prop="countryCode">
-                            <el-select v-model="formData.countryCode" filterable placeholder="Select country or region" no-match-text="No matching data"
+                            <el-select v-model="formData.countryCode" filterable :placeholder="$t('survey.selectCountry')" no-match-text="No matching data"
                                 :disabled="isRequesting" class="select_area" popper-class="survey_select" @change="onCountryChange" @visible-change="onCountryDropdown">
 
                                 <i slot="prefix" class="iconfont icon-country"></i>
@@ -100,17 +98,15 @@
                     <div class="card_content">
                         <div class="sales_header">
                             <div v-if="currentSales.length" class="sales_title">
-                                Your Regional Sales Contact
+                                {{$t('survey.sales.title')}}
                             </div>
                             <div v-else class="sales_title required">
-                                Add Sales Contact
+                               {{$t('survey.sales.noSalesTitle')}}
                             </div>
                             <div class="sales_subtitle">
                                 {{ currentSales.length
-                                    ? 'Our local sales representative will assist you with product inquiries and
-                                cooperation.'
-                                : 'No sales contact is assigned to this region yet. Please ask on-site staff to assist
-                                    in adding sales contact information.'
+                                    ? $t('survey.sales.desc')
+                                : $t('survey.sales.noDesc')
                                 }}
                             </div>
                         </div>
@@ -126,12 +122,12 @@
 
                                         <a :href="`https://wa.me/${sale.whatsapp.replace(/\D/g, '')}`" target="_blank"
                                             class="sales_link whatsapp">
-                                            <span class="label">WhatsApp:</span>
+                                            <span class="label">{{ $t('survey.sales.whatsapp') }}:</span>
                                             <span class="value">{{ sale.whatsapp }}</span>
                                         </a>
 
                                         <a :href="`mailto:${sale.email}`" class="sales_link email">
-                                            <span class="label">Email:</span>
+                                            <span class="label">{{ $t('survey.sales.email') }}:</span>
                                             <span class="value">{{ sale.email }}</span>
                                         </a>
 
@@ -161,7 +157,7 @@
                 <div class="button_area">
                     <el-form-item style="display: flex; justify-content: center;">
                         <el-button class="submit_btn" type="primary" @click="submit"
-                            :loading="isRequesting">Submit</el-button>
+                            :loading="isRequesting">{{$t('survey.submit')}}</el-button>
                     </el-form-item>
                 </div>
 
@@ -244,11 +240,11 @@ export default {
         return {
             salesList: [],
             occupationOptions: [
-                { label: Occupation.DENTIST, value: Occupation.DENTIST },
-                { label: Occupation.DISTRIBUTOR, value: Occupation.DISTRIBUTOR },
-                { label: Occupation.DENTAL_LAB, value: Occupation.DENTAL_LAB },
-                { label: Occupation.KOL, value: Occupation.KOL },
-                { label: Occupation.OTHER, value: Occupation.OTHER }
+                { label: this.$t('survey.occupations.DENTIST'), value: Occupation.DENTIST },
+                { label: this.$t('survey.occupations.DISTRIBUTOR'), value: Occupation.DISTRIBUTOR },
+                { label: this.$t('survey.occupations.DENTAL_LAB'), value: Occupation.DENTAL_LAB },
+                { label: this.$t('survey.occupations.KOL'), value: Occupation.KOL },
+                { label: this.$t('survey.occupations.OTHER'), value: Occupation.OTHER }
             ],
             //登录表单数据绑定对象
             formData: {
@@ -261,21 +257,17 @@ export default {
             },
             formRules: {
                 name: [
-                    { required: true, message: 'Please enter your name.', trigger: 'blur' },
+                    { required: true, message: this.$t('survey.validation.name'), trigger: 'blur' },
                 ],
                 email: [
-                    { required: true, message: 'Please enter your email address.', trigger: 'blur' },
-                    { type: 'email', message: 'Please enter a valid email address.', trigger: 'blur' }
+                    { required: true, message: this.$t('survey.validation.emailRequired'), trigger: 'blur' },
+                    { type: 'email', message: this.$t('survey.validation.emailInvalid'), trigger: 'blur' }
                 ],
                 countryCode: [
-                    { required: true, message: 'Please select your country or region.', trigger: 'change' },
+                    { required: true, message: this.$t('survey.validation.country'), trigger: 'change' },
                 ],
             },
-            regionOptions: [{ label: "Mainland China", value: "cn" }, { label: "Europe", value: "eu" }, { label: "India", value: "in" }, { label: "Global", value: "en" }],
-            region: "",
             isRequesting: false,
-            tokenInfo: null,
-            requestingHostUrl: false, //是否正在请求HostUrl
             map: null,
             countries: getNames().map(name => {
                 //console.log('country name:', name)
@@ -292,15 +284,11 @@ export default {
             },
             editFormRules: {
                 name: [
-                    { required: true, message: 'Name is required', trigger: 'blur' }
+                    { required: true, message: this.$t('survey.validation.required'), trigger: 'blur' }
                 ],
                 email: [
-                    { required: true, message: 'Email is required', trigger: 'blur' },
-                    {
-                        type: 'email',
-                        message: 'Please enter a valid email address',
-                        trigger: ['blur']
-                    }
+                    { required: true, message: this.$t('survey.validation.emailRequired'), trigger: 'blur' },
+                    { type: 'email', message: this.$t('survey.validation.emailInvalid'), trigger: 'blur' }
                 ]
             },
             editingSale: null, // 用于记录当前编辑的销售
@@ -359,21 +347,6 @@ export default {
                 .catch(err => {
                     console.error('Locate country failed:', err)
                 })
-        },
-
-        validateEmail(rule, value, callback) {
-            console.log("validateEmail: value:" + value);
-
-            //判断是否为开发环境
-            if (this.$tool.isDev()) {
-                callback();
-            } else {
-                if (!this.$regex.email.test(value)) {
-                    callback(new Error('请输入有效的邮箱地址！'));
-                } else {
-                    callback();
-                }
-            }
         },
 
         openEditDialog(sale) {
@@ -502,7 +475,7 @@ export default {
                     this.isRequesting = false;
 
                     if (!result) {
-                        const msg = "Submit failed!";
+                        const msg = $t('survey.tip.failed');
                         console.log(msg);
                         this.$message.error(msg);
                         return;
@@ -511,7 +484,7 @@ export default {
                     localStorage.setItem('survey_submitted', 'true')
                     localStorage.setItem('survey_email', this.formData.email)
 
-                    const msg = "Submit succeeded!";
+                    const msg = $t('survey.tip.succeeded');
                     console.log(msg);
                     this.$message.success(msg);
 
@@ -522,15 +495,15 @@ export default {
                             query: {
                             }
                         });
-                    }, 3000);
+                    }, 1000);
 
 
                 } catch (err) {
                     this.isRequesting = false;
 
-                    const error = "";//Errors.getLoginError(err?.code || err);
-                    console.error("Login failed: ", error);
-                    this.$message.error("Login failed: " + error);
+                    const msg = $t('survey.tip.failed');
+                    console.log(msg);
+                    this.$message.error(msg);
                 }
 
                 return true;
