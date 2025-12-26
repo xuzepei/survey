@@ -6,19 +6,19 @@
                 <div class="avatar_box">
                     <img src="@/assets/images/logo2.png" alt="">
                 </div>
-                <h2 class="form-title">Login</h2>
+                <h2 class="form-title">{{ $t('login.title') }}</h2>
                 <!-- 登录表单 -->
                 <el-form ref="loginFormRef" class="login_form" label-width="0px" :model="loginFormData"
                     :rules="loginFormRules">
                     <!-- 用户名 -->
                     <el-form-item prop="username">
                         <el-input v-model="loginFormData.username" prefix-icon="iconfont icon-user"
-                            placeholder="UserName"></el-input>
+                            :placeholder="$t('login.username')"></el-input>
                     </el-form-item>
                     <!-- 密码 -->
                     <el-form-item prop="password">
                         <el-input v-model="loginFormData.password" prefix-icon="iconfont icon-password"
-                            placeholder="Password" :type="showPassword ? 'text' : 'password'">
+                            :placeholder="$t('login.password')" :type="showPassword ? 'text' : 'password'">
                             <!-- 尾部图标 -->
                             <template slot="suffix">
                                 <img :src="showPassword ? require('@/assets/images/open-eye.png') : require('@/assets/images/close-eye.png')"
@@ -31,8 +31,8 @@
                         <!-- 按钮区 -->
                         <el-form-item class="buttons">
                             <el-button class="login_btn" type="primary" @click="login"
-                                :loading="isRequesting">Sign In</el-button>
-                            <el-button @click="resetLoginForm">Reset</el-button>
+                                :loading="isRequesting">{{ $t('login.submit') }}</el-button>
+                            <el-button @click="resetLoginForm">{{ $t('login.reset') }}</el-button>
                         </el-form-item>
                     </div>
 
@@ -204,7 +204,7 @@ export default {
                 this.isRequesting = true;
 
                 try {
-                    
+
                     //console.log("md5:" + md5(this.loginFormData.password));
 
                     if (this.loginFormData.username === "Admin" && md5(this.loginFormData.password) === this.$tool.adminHash) {

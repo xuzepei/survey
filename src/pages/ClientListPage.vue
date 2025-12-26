@@ -1,7 +1,7 @@
 <template>
     <PageLayout>
         <div class="page-container">
-            <h2 class="title">Client List</h2>
+            <h2 class="title">{{ $t('client.title') }}</h2>
             <div class="filter-bar">
                 <!-- <el-input
     v-model="salesKeyword"
@@ -11,13 +11,13 @@
     style="width: 280px"
   /> -->
 
-                <el-select v-model="selectedSales" placeholder="Filter by Sales" clearable size="small"
+                <el-select v-model="selectedSales" :placeholder="$t('client.filter_placeholder')" clearable size="small"
                     style="width: 220px">
                     <el-option v-for="item in salesOptions" :key="item" :label="item" :value="item" />
                 </el-select>
 
                 <el-button type="primary" size="small" icon="el-icon-download" @click="exportExcel">
-                    Export Excel
+                    {{ $t('client.export') }}
                 </el-button>
 
             </div>

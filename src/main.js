@@ -30,11 +30,15 @@ Vue.prototype.$colors = colors;
 // 在Vue实例创建前调用
 //urlConfigShared.fetchAPIHostUrl(Vue.prototype.$http);
 
+//引入i18n国际化语言
+import i18n from '@/i18n'
+
 //生产环境下不产生控制台提示
 Vue.config.productionTip = false
 
 const app = new Vue({
   router,  // Use the router
+  i18n,
   render: h => h(App),
 });
 app.$mount('#app')
