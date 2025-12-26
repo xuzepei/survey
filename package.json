@@ -17,11 +17,13 @@
     "country-list": "^2.4.1",
     "echarts": "^5.5.1",
     "element-ui": "^2.15.14",
+    "file-saver": "^2.0.5",
     "leaflet": "^1.9.4",
     "querystring": "^0.2.1",
     "sharp": "^0.34.1",
     "vue": "^2.6.14",
-    "vue-router": "^3.6.5"
+    "vue-router": "^3.6.5",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
