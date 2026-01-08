@@ -17,7 +17,7 @@ import { userShared } from './plugins/User'
 Vue.use(Router)
 
 const router = new Router({
-    mode: 'hash', // Use 'history' mode to avoid hash in URLs
+    mode: 'history', // Use 'history' mode to avoid hash in URLs
     routes: [
         {
             path: '/clients', name: 'ClientList', component: ClientList, meta: {

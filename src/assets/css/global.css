@@ -40,3 +40,34 @@ html {
   --card-head-color: #4270a5;
   --card-text-color: #202124;
 }
+
+/* 修改所有按钮的默认圆角和字体 */
+.el-button {
+  border-radius: 8px !important; 
+  font-weight: 700 !important;
+  transition: all 0.3s !important;
+}
+
+/* 统一修改 Primary 按钮的颜色 */
+.el-button--primary {
+  /* background-color: #6200ee !important;
+  border-color: #6200ee !important; */
+
+  /* 线性渐变：从左到右 (to right) */
+  background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%) !important;
+  
+  /* 关键：渐变色按钮通常需要去掉边框，或者让边框透明 */
+  border: none !important;
+  
+  /* 阴影可以让渐变按钮更有悬浮感（可选） */
+  box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+
+  color: #fff !important;
+}
+
+/* 修改悬停状态 */
+.el-button--primary:hover,
+.el-button--primary:focus {
+  background: linear-gradient(to right, #5fb3ff 0%, #5fb3ff 100%) !important;
+  border-color: #7722ff !important;
+}

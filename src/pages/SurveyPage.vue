@@ -23,7 +23,7 @@
                     <div class="card_content">
                         <div class="form_title required">{{$t('survey.name')}}</div>
                         <el-form-item prop="name">
-                            <el-input v-model.trim="formData.name" prefix-icon="iconfont icon-user"
+                            <el-input v-model="formData.name" prefix-icon="iconfont icon-user"
                                 :placeholder="$t('survey.placeholder.name')" @keyup.enter.native="blurActiveElement"></el-input>
                         </el-form-item>
                     </div>
@@ -33,7 +33,7 @@
                     <div class="card_content">
                         <div class="form_title required">{{$t('survey.email')}}</div>
                         <el-form-item prop="email">
-                            <el-input v-model.trim="formData.email" prefix-icon="iconfont icon-email"
+                            <el-input v-model="formData.email" prefix-icon="iconfont icon-email"
                                 :placeholder="$t('survey.placeholder.email')" @keyup.enter.native="blurActiveElement"></el-input>
                         </el-form-item>
                     </div>
@@ -43,7 +43,7 @@
                     <div class="card_content">
                         <div class="form_title">{{$t('survey.whatsapp')}}</div>
                         <el-form-item prop="whatsapp">
-                            <el-input v-model.trim="formData.whatsapp" prefix-icon="iconfont icon-whatsapp" :placeholder="$t('survey.placeholder.whatsapp')"
+                            <el-input v-model="formData.whatsapp" prefix-icon="iconfont icon-whatsapp" :placeholder="$t('survey.placeholder.whatsapp')"
                                 @input="onWhatsappInput" @keyup.enter.native="blurActiveElement"></el-input>
                         </el-form-item>
                     </div>
@@ -132,7 +132,7 @@
                                         </a>
 
                                         <!-- 编辑按钮 -->
-                                        <el-button class="edit_btn" v-show="false" type="text" @click="openEditDialog(sale)">
+                                        <el-button class="edit_btn" v-show="true" type="text" @click="openEditDialog(sale)">
                                             <i class="el-icon-edit"></i>
                                         </el-button>
 
@@ -166,17 +166,17 @@
 
             <el-dialog :visible.sync="editDialogVisible" :title="editDialogTitle" width="100%" class="edit-dialog"
                 :close-on-click-modal="false" :append-to-body="true">
-                <el-form ref="editFormRef" :model="editForm" :rules="editFormRules" label-width="90px">
+                <el-form ref="editFormRef" :model="editForm" :rules="editFormRules" label-width="auto">
                     <el-form-item label="Name" prop="name">
-                        <el-input v-model.trim="editForm.name" />
+                        <el-input v-model="editForm.name" />
                     </el-form-item>
 
                     <el-form-item label="WhatsApp">
-                        <el-input v-model.trim="editForm.whatsapp" />
+                        <el-input v-model="editForm.whatsapp" />
                     </el-form-item>
 
                     <el-form-item label="Email" prop="email">
-                        <el-input v-model.trim="editForm.email" />
+                        <el-input v-model="editForm.email" />
                     </el-form-item>
                 </el-form>
 
