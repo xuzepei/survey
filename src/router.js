@@ -18,7 +18,6 @@ Vue.use(Router)
 
 const router = new Router({
     mode: 'history', // Use 'history' mode to avoid hash in URLs
-    base: '/survey/',
     routes: [
         {
             path: '/clients', name: 'ClientList', component: ClientList, meta: {
