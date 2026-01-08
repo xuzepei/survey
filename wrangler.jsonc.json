@@ -1,0 +1,8 @@
+{
+  "name": "survey", // 你的项目名称
+  "compatibility_date": "2026-01-08",
+  "assets": {
+    "directory": "./dist",     // 关键：告诉 Cloudflare 静态文件在 dist 文件夹
+    "binding": "ASSETS"
+  }
+}
